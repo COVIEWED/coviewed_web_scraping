@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__title__ = 'coviewed_web_scraping'
+__title__ = 'coviewed_web_scraping with newspaper lib'
 __author__ = 'Dietrich Trautmann'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020, Dietrich Trautmann'
@@ -28,7 +28,7 @@ if __name__ == '__main__':
             "-v",
             "--verbose",
             help="shows output",
-            type=bool
+            action='store_true'
             )
     args = parser.parse_args()
 
