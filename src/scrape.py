@@ -4,6 +4,7 @@ __author__ = 'Dietrich Trautmann'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020, Dietrich Trautmann'
 
+import os
 import hashlib 
 import argparse
 from newspaper import Article
@@ -36,6 +37,7 @@ if __name__ == '__main__':
         output_file = args.output_file
     else:
         output_file = hashlib.md5(args.url.encode()).hexdigest() + '.txt'
+        output_file = os.path.join('data', output_file)
 
     article = Article(args.url)
     article.download()
@@ -43,6 +45,8 @@ if __name__ == '__main__':
     
     with open(output_file, "w") as f:
         f.writelines(args.url)
+        f.writelines("\n\n")
+        f.writelines(str(article.publish_date))
         f.writelines("\n\n")
         f.writelines(article.title)
         f.writelines("\n\n")
