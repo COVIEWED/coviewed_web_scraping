@@ -51,7 +51,6 @@ if __name__ == '__main__':
     if args.verbose:
         print(output_file)
         print(args.url)
-        print(args.output_file)
         print(article.title)
         print(article.text)
     
