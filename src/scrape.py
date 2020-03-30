@@ -15,14 +15,16 @@ from newspaper.article import ArticleException
 
 def parse_article(url):
     r = requests.get(url)
-    if r.status_code != 200:
+    if r.status_code == 404:
         raise ValueError("URL not found: %s" % url)
     article = Article(url)
     try:
         article.download()
         article.parse()
     except:
-        driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument("headless")
+        driver = webdriver.Chrome(chrome_options=options)
         driver.get(url)
         article.download(input_html=driver.page_source)
         article.parse()
