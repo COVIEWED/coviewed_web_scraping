@@ -7,13 +7,26 @@ __copyright__ = "Copyright 2020, Dietrich Trautmann"
 import os
 import hashlib
 import argparse
+import requests
+from selenium import webdriver
 from newspaper import Article
+from newspaper.article import ArticleException
 
 
 def parse_article(url):
-    article = Article(args.url)
-    article.download()
-    article.parse()
+    r = requests.get(url)
+    if r.status_code != 200:
+        raise ValueError("URL not found: %s" % url)
+    article = Article(url)
+    try:
+        article.download()
+        article.parse()
+    except:
+        driver = webdriver.Chrome()
+        driver.get(url)
+        article.download(input_html=driver.page_source)
+        article.parse()
+        driver.close()
     return article
 
 
